@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  api:
+    build: .
+    container_name: fastapi-template
+    image: fastapi-template:latest
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 8000:8000
+
+  redis:
+    container_name: redis
+    image: redis:latest
+    restart: always
+    ports:
+      - 6379:6379
+    command: redis-server --appendonly yes --requirepass password
+    volumes:
+      - redis_data:/data
+
+volumes:
+  redis_data:
+    name: redis_data
